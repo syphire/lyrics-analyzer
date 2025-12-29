@@ -1,16 +1,48 @@
-# React + Vite
+# Lyrics Insight 🎵
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Lyrics Insight** es una aplicación web diseñada para analizar las letras de tus canciones favoritas utilizando Inteligencia Artificial. La aplicación no solo muestra la letra de las canciones, sino que analiza los temas, emociones y patrones lingüísticos de la misma.
 
-Currently, two official plugins are available:
+## ✨ Características Principales
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+*   **Buscador de Canciones**: Integración con la **API de Genius** para encontrar cualquier canción.
+*   **Visualización de Letras**: Muestra la letra completa de la canción seleccionada.
+*   **Análisis con IA (Powered by Google Gemini)**:
+    *   **Vibe**: Un resumen en una frase del sentimiento general de la canción.
+    *   **Mapa de Emociones**: Gráficos de barras horizontales que muestran el porcentaje de emociones como alegría, tristeza, energía, nostalgia, amor, esperanza, etc.
+    *   **Temas Principales**: Etiquetas con los tópicos recurrentes en la letra.
+    *   **Patrones Lingüísticos**: Un análisis breve sobre el estilo, rimas y metáforas utilizadas por el artista.
+*   **Interfaz**: Construida con **React** y **Tailwind CSS**.
 
-## React Compiler
+## 🛠 Tecnologías
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+*   **Frontend**: React (Vite), Tailwind CSS, Lucide React (iconos).
+*   **Backend**: Vercel Serverless Functions (Node.js).
+*   **APIs Externas**:
+    *   [Genius API](https://docs.genius.com/): Para búsqueda de metadatos y scraping de letras.
+    *   [Google Gemini API](https://ai.google.dev/): Modelo `gemini-2.0-flash` para el análisis semántico y emocional.
 
-## Expanding the ESLint configuration
+## 🚀 Configuración Local
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1.  **Clonar el repositorio** y entrar en la carpeta.
+2.  **Instalar dependencias**:
+    ```bash
+    npm install
+    ```
+3.  **Configurar Variables de Entorno**:
+    Crea un archivo `.env` en la raíz con las siguientes claves:
+    ```env
+    GENIUS_API_KEY=tu_token_de_genius
+    GEMINI_API_KEY=tu_api_key_de_google
+    ```
+4.  **Ejecutar en desarrollo**:
+    ```bash
+    vercel dev
+    ```
+
+## 📝 Capturas
+
+![Lyrics Insight App](public/lyrics-analyzer.png)
+
+
+---
+Desarrollado con ❤️ por Silvia Piñeiro, 2025.
