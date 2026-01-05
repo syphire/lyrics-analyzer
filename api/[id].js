@@ -48,14 +48,26 @@ export default async function handler(req, res) {
     console.log("Fetching lyrics from URL:", song.url);
     const html = await fetch(song.url, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1'
       }
     }).then(r => r.text());
 
+    console.log("Lyrics fetch status:", 200); // Fetch resolves ok if we are here
     console.log("HTML fetched, length:", html.length);
     const $ = cheerio.load(html);
 
-    const container = $('[data-lyrics-container="true"]');
+    let container = $('[data-lyrics-container="true"]');
+
+    // Fallback para páginas antiguas o vistas alternativas
+    if (container.length === 0) {
+      console.log("Modern container not found, trying .lyrics fallback...");
+      container = $('.lyrics');
+    }
+
     console.log("Lyrics containers found:", container.length);
 
     const rawLyrics = container
