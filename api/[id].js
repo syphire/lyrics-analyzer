@@ -25,9 +25,6 @@ function cleanLyrics(text) {
 export default async function handler(req, res) {
   const { id } = req.query;
 
-  console.log("SONG ID:", id);
-
-
   if (!id) {
     return res.status(400).json({ error: "Missing song id" });
   }
@@ -48,10 +45,20 @@ export default async function handler(req, res) {
     const song = songData.response.song;
 
     // 2️⃣ Scrapear letra desde la URL
-    const html = await fetch(song.url).then(r => r.text());
+    console.log("Fetching lyrics from URL:", song.url);
+    const html = await fetch(song.url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+    }).then(r => r.text());
+
+    console.log("HTML fetched, length:", html.length);
     const $ = cheerio.load(html);
 
-    const rawLyrics = $('[data-lyrics-container="true"]')
+    const container = $('[data-lyrics-container="true"]');
+    console.log("Lyrics containers found:", container.length);
+
+    const rawLyrics = container
       .map((_, el) => {
         return $(el)
           .find("br")

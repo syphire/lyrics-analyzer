@@ -18,7 +18,11 @@ export default async function handler(req, res) {
     );
 
     if (!searchRes.ok) {
-      throw new Error("Genius search failed");
+      console.error("Genius API Error Status:", searchRes.status);
+      console.error("Genius API Key Present:", !!process.env.GENIUS_API_KEY);
+      const errorText = await searchRes.text();
+      console.error("Genius API Error Body:", errorText);
+      throw new Error(`Genius search failed: ${searchRes.status} ${searchRes.statusText}`);
     }
 
     const searchData = await searchRes.json();
